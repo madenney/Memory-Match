@@ -1,0 +1,287 @@
+@font-face {
+    font-family: myFont;
+    src: url("fonts/dpcomic.regular.ttf");
+}
+
+body {
+    height: 100vh;
+    font-family: myFont;
+    background-image: url(images/8-Bit-Library-Background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+
+header {
+    font-family: myFont;
+    width: 100%;
+    height: 15%;
+    #background-color: lightgray;
+    margin-bottom: 1%;
+    position: relative;
+}
+
+#title {
+    font-size: 68px;
+    margin : auto;
+    padding-top: 8px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#title img {
+    width: 35vw;
+}
+
+#title:hover {
+    text-decoration: none;
+}
+
+.header-option {
+    margin: auto;
+    color: #b97a57;
+    margin-top: 30px;
+    font-size: 30px;
+    background-color: #09333f;
+    border: solid #604428 8px;
+    border-radius: 5px;
+}
+
+.settings {
+    display: none;
+}
+
+.about {
+    float: right;
+}
+
+#main-content {
+    font-family: myFont;
+    height: 83%;
+    position: relative;
+}
+
+.click-blocker {
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    margin: auto;
+    z-index: 10;
+    opacity: .6;
+}
+
+#player-area {
+    color: #b97a57;
+    background-color: #09333f;
+    text-align: center;
+    box-sizing: border-box;
+    border: solid #604428 8px;
+    border-radius: 24px;
+    height: 75vh;
+    position: relative;
+}
+
+.player-title {
+    font-size: 30px;
+    margin: 10px;
+    margin-bottom: 1vh;
+}
+
+.score {
+    font-size: 45px;
+    padding: 0px;
+    margin-bottom: 1vh;
+}
+
+.score .label {
+    padding: 0px;
+}
+
+.score .value {
+    margin: 0px;
+    padding: 0px;
+}
+
+.ability {
+    width: 50%;
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+
+.using-ability {
+    background-color:#d5c86a;
+}
+
+.used-ability {
+    color: lightgray;
+    background-color: darkgray;
+}
+
+.reset {
+    position: absolute;
+    bottom: 20px;
+    left: 30%;
+    width: 40%;
+    border-radius: 2px;
+}
+
+#game-area {
+    #background-color: gray;
+    height: 80vh;
+}
+
+.deckContainer {
+    background-color: #09333f;
+    border: #604428 solid 5px;
+    border-radius: 12px;
+    box-sizing: content-box;
+    padding: 5px;
+    margin: auto;
+}
+
+.cardContainer {
+    display: inline-block;
+    box-sizing: border-box;
+    #border: solid black 2px;
+    float: left;
+    #padding: 10px;
+    text-align: center;
+}
+
+.card img {
+    padding: 10px;
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+}
+
+.front img {
+    border: solid #181510 9px;
+    border-radius: 11px;
+    margin-top: 10px;
+    width: 131px;
+    height: 131px;
+    background-color: #a1653f;
+}
+
+.card {
+    float: left;
+    display: inline-block;
+    margin: 2px;
+    #height: 100%;
+    #width: 100%;
+}
+
+.pointsAnimation {
+    margin: auto;
+    width: 40%;
+    height: 20%;
+    color: #b97a57;
+    font-size: 35px;
+}
+
+.hidden {
+    display: none;
+}
+
+.back {
+    margin: auto;
+    #width: 100%;
+    #height: 100%;
+}
+
+.front {
+    margin: auto;
+    #width: 100%;
+    #height: 100%;
+}
+
+#enemy-area {
+    color: #b97a57;
+    background-color: #09333f;
+    text-align: center;
+    box-sizing: border-box;
+    border: solid #604428 8px;
+    border-radius: 24px;
+    height: 75vh;
+}
+
+#enemy-area img {
+    width: 100%;
+}
+
+#about-content {
+    color: #b97a57;
+    background-color: #09333f;
+    border: solid #604428 4px;
+    border-radius: 12px;
+    margin: auto;
+    width: 458px;
+    padding: 30px;
+    font-family: myFont;
+}
+
+#about-content img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.speech-bubble {
+    background-color: #09333f;
+    border: solid #604428 5px;
+    border-radius: 8px;
+    width: 80%;
+    font-size: 20px;
+    margin: auto;
+    padding: 10px;
+}
+
+#intro {
+    font-size: 1.7vw;
+    font-family: myFont;
+    color: #b97a57;
+    background-color: #09333f;
+    border: solid #604428 8px;
+    border-radius: 8px;
+    margin: 0px 10vw;
+    #height: 600px;
+    width: 80vw;
+    position: absolute;
+    z-index: 100;
+    padding-bottom: 20px;
+}
+
+#intro h1 {
+    font-size: 3vw;
+}
+
+#intro h2 {
+    font-size: 2.5vw;
+}
+
+#intro img {
+    position: static;
+    width: 23%;
+    float: left;
+    display: inline-block;
+}
+
+.intro-top {
+
+}
+
+#secret-button {
+    position: absolute;
+    top:0px;
+    right: 0px;
+    width: 15px;
+    height: 15px;
+}
+
+@media only screen and (max-height: 700px) {
+    .score .label {
+        display: none;
+    }
+}
