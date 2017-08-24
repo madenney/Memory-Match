@@ -5,23 +5,31 @@
 // Deck Object
 function Deck(size) {
 
-    var size = size;
     var cards = [];
-    var picSrcArray = [];
+    // Create picture source array
+    var picSrcArray = ["baseball.png", "bird.png", "sun.png", "tree.png", "house.png", "shoes.png",
+        "horse.png", "guitar.png", "hamburger.png", "tv.png", "dog.png", "fish.png",
+        "flower.png", "car.png", "airplane.png", "sword.png", "knight.png", "ant.png", "tools.png",
+        "plant.png", "trash.png", "potatoes.png", "motorcycle.png", "table.png", "whale.png", "phone.png",
+        "tennis.png", "hanger.png", "water.png", "8bitowl.png"];
+
+    // Run constructor
+    constructor();
 
     // This will run upon creation of a new deck
-    this.constructor = function() {
-        // Make sure size if correct
-        if (size % 2 != 0) {
+    function constructor(){
+        createDeck();
+        shuffle();
+    }
+
+    function createDeck(){
+        // Make sure size is correct
+        if (size % 2 !== 0) {
             console.log("Error: Cannot have an odd number of cards.");
             return;
         }
-        // Create picture source array
-        picSrcArray = ["baseball.png", "bird.png", "sun.png", "tree.png", "house.png", "shoes.png",
-            "horse.png", "guitar.png", "hamburger.png", "tv.png", "dog.png", "fish.png",
-            "flower.png", "car.png", "airplane.png", "sword.png", "knight.png", "ant.png", "tools.png",
-            "plant.png", "trash.png", "potatoes.png", "motorcycle.png", "table.png", "whale.png", "phone.png",
-            "tennis.png", "hanger.png", "water.png", "8bitowl.png"];
+
+        // Add /images onto each element of the pic array
         for(var i = 0; i < picSrcArray.length; i++) {
             picSrcArray[i] = "images/" + picSrcArray[i];
         }
@@ -32,6 +40,7 @@ function Deck(size) {
             picArray.push(picSrcArray[i]);
             picArray.push(picSrcArray[i]);
         }
+
         // Create deck
         for(var i = 0; i < picArray.length; i++) {
             var card = {
@@ -53,21 +62,19 @@ function Deck(size) {
             };
             cards.push(card);
         }
-    };
+    }
 
+    // Shuffle the cards
+    function shuffle() {
 
-    // Randomize the order of the cards
-    this.shuffle = function() {
-        // Declare some variables
         var tempArray = [];
-        var len = cards.length;
-        for (var i = cards.length; i > 0; i--) {
-            tempArray.push(cards[i-1]);
-            cards.pop();
+        var deckSize = cards.length;
+        for (var i = 0; i < deckSize; i++) {
+            tempArray.push(cards.pop());
         }
 
-        // Loop through array
-        for (var i = 0; i < len; i++) {
+        // Loop through array and rebuild the deck in random order
+        for (var i = 0; i < deckSize; i++) {
             // Get random value and use it as an index to push onto the new array
             x = Math.floor(Math.random() * tempArray.length);
             cards.push(tempArray[x]);
@@ -76,7 +83,7 @@ function Deck(size) {
             tempArray[x] = tempArray[tempArray.length - 1];
             tempArray.pop();
         }
-    };
+    }
 
     // Return an array of [id, picSrc] of size of deck
     this.getCardsInfo = function() {
@@ -314,6 +321,4 @@ function Deck(size) {
     // return size
     this.getSize = function() {return size;};
 
-    // Do the constructor
-    this.constructor();
 }
