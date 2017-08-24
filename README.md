@@ -2,16 +2,19 @@
 
 ## Overview
 
-> Memory match is a game with 18 cards face down and the player has to try and match all 9 pairs of matching cards by remembering the position of the cards.
-Once the player has match 2 cards they will be displayed face up until all pairs have been matched. Once all pairs have been matched the user will be
-displayed a message that they have won the game. As the user clicks through the cards stats will be kept letting the user know how many attempts and the
-accuracy of their choices.
+> This is a memory game where the user has to try to match pairs of face down cards. The twist in this one is that there
+is an AI opponent with a perfect memory and the board gets bigger each round. Throughout the game, the user unlocks abilities
+that will help them defeat the AI opponent.
 
-> <a href="https://docs.google.com/presentation/d/1zlSHYatpaPsrq4LuOtyuE-RRIom4vRo-lXovQ0zPV0U/pub?start=false&loop=false&delayms=3000" target="_blank">Design Overview</a>
+#About
 
-> <a href="https://drive.google.com/open?id=0B3R9g7F9YRS6SHd3Q3lRdWF0RkU" target="_blank">Flow Document</a>
+> This was a project I did by myself near the beginning of my web development training. It was a way to practice my basic
+HTML, CSS, Javascript, and JQuery skills. I had a lot of fun making this one.
 
-> ### Versions
-> - Version 1.0 (v1.0) - <a href="https://github.com/Learning-Fuze/memory_match/tree/v1.0">View Details</a>
-> - Version 0.5 (v0.5) - <a href="https://github.com/Learning-Fuze/memory_match/tree/v0.5">View Details</a>
-> - Version 0.1 (v0.1) - <a href="https://github.com/Learning-Fuze/memory_match/tree/v0.1">View Details</a>
+#Future
+
+> If I was to come back to this and work on it again, there are several changes I would make. 
+- Make the rules more clear and less boring to read.
+- Make the owl better at trash talking
+- Add sound effects
+- Maybe some more interesting abilites
