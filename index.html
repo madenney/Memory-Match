@@ -18,6 +18,7 @@
 
             var attempts = 0;
             var game = new Game(attempts);
+            audioPlaying = true;
 
             // Assign Click Listeners
             $(".custom-modal").click(function() {
@@ -33,6 +34,19 @@
             $("#secret-button").click(function() {
                 game.startNewRound();
             });
+
+            // Audio Button
+            $("#audio-button").click(function() {
+                $(this).toggleClass("glyphicon-volume-up");
+                $(this).toggleClass("glyphicon-volume-off");
+                if(audioPlaying){
+                    document.getElementById("background-music").pause();
+                    audioPlaying = false;
+                } else {
+                    document.getElementById("background-music").play();
+                    audioPlaying = true;
+                }
+            });
         });
 
     </script>
@@ -40,9 +54,10 @@
 
 </head>
 <body>
+    <audio autoplay id="background-music"><source src="audio/fancyharpsichord.mp3" type="audio/mp3"></audio>
     <header class = "container-fluid">
         <div class = "col-md-2">
-            <a href="#"><button class = "header-option settings"> Settings</button></a>
+            <span id="audio-button" class="glyphicon glyphicon-volume-up"></span>
         </div>
         <div id = "title" class = "col-md-8"><a href = "index.html"><img src = "images/mmtitle.png"></a></div>
         <div class = "col-md-2">
@@ -53,6 +68,7 @@
     <div id = "intro" class = "custom-modal">
         <div class = "intro-top">
             <img src = "images/8bitowl.png">
+            <br><br>
             <h1> Hello!</h1>
             <h2> Welcome to Olly's Library of Infinite Knowledge</h2>
             <p> If you would like access to my library, then you must first beat me at a simple game.</p>

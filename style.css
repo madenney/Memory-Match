@@ -245,7 +245,7 @@ header {
     background-color: #09333f;
     border: solid #604428 8px;
     border-radius: 8px;
-    margin: 0px 10vw;
+    margin: -25px 10vw;
     height: 60vh;
     width: 80vw;
     position: absolute;
@@ -259,6 +259,10 @@ header {
 
 #intro h2 {
     font-size: 2.5vw;
+}
+
+.intro-bottom h2 {
+    margin-left: 20px;
 }
 
 .custom-modal img {
@@ -283,6 +287,12 @@ header {
     right: 0px;
     width: 15px;
     height: 15px;
+}
+
+#audio-button{
+    font-size: 76px;
+    color: #b97a57;
+    margin-top: 10px;
 }
 
 @media only screen and (max-height: 700px) {
