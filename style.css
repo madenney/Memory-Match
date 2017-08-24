@@ -238,7 +238,7 @@ header {
     padding: 10px;
 }
 
-#intro {
+.custom-modal {
     font-size: 1.7vw;
     font-family: myFont;
     color: #b97a57;
@@ -246,7 +246,7 @@ header {
     border: solid #604428 8px;
     border-radius: 8px;
     margin: 0px 10vw;
-    #height: 600px;
+    height: 60vh;
     width: 80vw;
     position: absolute;
     z-index: 100;
@@ -261,15 +261,20 @@ header {
     font-size: 2.5vw;
 }
 
-#intro img {
+.custom-modal img {
     position: static;
     width: 23%;
     float: left;
     display: inline-block;
 }
 
-.intro-top {
+#you-lose-screen{
+    text-align: center;
+    height: 60vh;
+}
 
+.botPoints {
+    color: red;
 }
 
 #secret-button {

@@ -4,8 +4,9 @@
 
 
 // Game object
-function Game(attempt) {
+function Game(attempts) {
 
+    var self = this;
     var isPlayerTurn = true;
     var playerScore;
     var botScore;
@@ -47,7 +48,7 @@ function Game(attempt) {
         addCardEventListeners(deck);
         addAbilityEventListeners();
 
-        bot = new Bot(deck, 0, attempt);
+        bot = new Bot(deck, 0, attempts, self);
         // Log the bots memory if the owl is clicked
         //$("#enemy-area img").click(function() {bot.makeMove();});
 
@@ -65,7 +66,7 @@ function Game(attempt) {
     };
 
     // Basically the same thing as the constructor, but it doesn't reset the score
-    this.startNewRound = function() {
+    function startNewRound() {
         console.log("Starting New Round");
         playerScoreStart = playerScore;
         botScoreStart = botScore;
@@ -74,12 +75,11 @@ function Game(attempt) {
         removeCardContainers();
         createCardContainers(boardDimensions[round][0],boardDimensions[round][1]);
         deck = new Deck(boardDimensions[round][0] * boardDimensions[round][1]);
-        deck.shuffle();
         fillCardContainers(deck.getCardsInfo());
         addCardEventListeners(deck);
         $(".click-blocker").addClass("hidden");
 
-        bot = new Bot(deck, round, attempt);
+        bot = new Bot(deck, round, attempts, self);
 
         // Ability 1
         if(round >= 1) {
@@ -106,14 +106,14 @@ function Game(attempt) {
         $(".ability1").click(function() {
             if($(this).hasClass("using-ability") || $(this).hasClass("used-ability")) {return;}
             $(this).addClass("using-ability");
-            game.usePointsDoubler();
+            usePointsDoubler();
         });
 
         // Ability 2
         $(".ability2").click(function() {
             if($(this).hasClass("used-ability")) {return;}
             $(this).addClass("used-ability");
-            game.usePeek();
+            usePeek();
         });
 
         // Ability 3
@@ -123,7 +123,6 @@ function Game(attempt) {
             removeCardContainers();
             createCardContainers(boardDimensions[round][0],boardDimensions[round][1]);
             deck = new Deck(boardDimensions[round][0] * boardDimensions[round][1]);
-            deck.shuffle();
             fillCardContainers(deck.getCardsInfo());
             addCardEventListeners(deck);
             playerScore = playerScoreStart;
@@ -186,6 +185,7 @@ function Game(attempt) {
         $("#game-area").append(boxContainer);
     }
 
+    // Using the array of values given by the deck object, fill each card container with a card
     function fillCardContainers(infoArray) {
 
         $(".cardContainer").each( function(i) {
@@ -228,11 +228,6 @@ function Game(attempt) {
     // Add Card listeners
     function addCardEventListeners(deck) {
         $(".card").click(function() {
-            // Log the card info
-            //deck.logCards(this.id, false);
-
-            // Unhide reset button
-            $(".reset").removeClass("hidden");
 
             // Check if this card is already clicked or matched, if yes, then return
             if (deck.isClicked(this.id)){return;}
@@ -247,7 +242,7 @@ function Game(attempt) {
                 var otherCardId = deck.getClickedCardId();
 
                 // Flip this card
-                flipCard(this.id);
+                deck.flipCard(this.id);
                 deck.setClicked(this.id);
 
                 // If matched
@@ -264,16 +259,17 @@ function Game(attempt) {
 
                     // Add to player score
                     setTimeout(function() {
-                        $(".player-score .value").text(game.incrementPlayerScore());
+                        $(".player-score .value").text(incrementPlayerScore());
                     }, 700);
 
                     // Check for the end of the round, if yes, then start new round
                     if(deck.isEveryCardMatched()) {
                         setTimeout(function(){
-                            if (game.getPlayerScore() >= game.getBotScore()){
-                                game.startNewRound();
+                            if (playerScore >= botScore){
+                                startNewRound();
                             } else {
                                 attempts++;
+                                $("#you-lose-screen").removeClass("hidden");
                                 game = new Game(attempts);
                             }
 
@@ -281,20 +277,20 @@ function Game(attempt) {
                     }
                 } else {
                     // If not matched, then unflip both cards
-                    unflipCard(otherCardId);
-                    unflipCard(this.id);
+                    deck.unflipCard(otherCardId);
+                    deck.unflipCard(this.id);
                     // Change info of both card objects
                     deck.setUnclicked(this.id);
                     deck.setUnclicked(otherCardId);
 
                     $(".click-blocker").removeClass("hidden");
                     setTimeout(function() {
-                        game.botsTurn();
+                        botsTurn();
                     }, 1500);
                 }
             } else {
                 // If its the first card clicked, then flip it and change card info
-                flipCard(this.id);
+                deck.flipCard(this.id);
                 deck.setClicked(this.id);
             }
         });
@@ -307,7 +303,7 @@ function Game(attempt) {
             $("#" + cardId + " .front").remove();
             $("#" + cardId + " .back").remove();
             // Create the points div, make it equal to points increment divided by two (because two cards)
-            var p = $("<div>").addClass("pointsAnimation").text("+" + game.getIncrement()/2);
+            var p = $("<div>").addClass("pointsAnimation").text("+" + increment/2);
 
             // Get height of cards and do some math to figure out how margin-top value
             var cardHeight = $("#" + cardId).css("height");
@@ -325,60 +321,23 @@ function Game(attempt) {
         }, 750);
     }
 
-    function flipCard(id) {
-        var card = $("#" + id);
-        var front = $(card).find(".front");
-        var back = $(card).find(".back");
-        var cardWidth = back.find("img").css("width");
-        back.animate({
-            width: 0
-        }, 300, function () {
-            back.addClass("hidden");
-            front.css("width", 0);
-            front.removeClass("hidden");
-            front.animate({
-                width: cardWidth
-            }, 200);
-        });
-    }
 
-    function unflipCard(id) {
-        setTimeout(function() {
-            var card = $("#" + id);
-            var front = $(card).find(".front");
-            var back = $(card).find(".back");
-            var cardWidth = front.css("width");
-            front.animate({
-                width: 0
-            }, 300, function () {
-                front.addClass("hidden");
-                back.css("width", 0);
-                back.removeClass("hidden");
-                back.animate({
-                    width: cardWidth
-                }, 200);
-            });
-
-        }, 1000);
-    }
-
-
-    this.botsTurn = function() {
+    function botsTurn() {
         if (pointsDoubler){
             $(".ability1").removeClass("using-ability");
             $(".ability1").addClass("used-ability");
         }
         pointsDoubler = false;
         bot.makeMove();
-    };
+    }
 
-    this.usePointsDoubler = function() {
+    function usePointsDoubler() {
         pointsDoubler = true;
-    };
+    }
 
-    this.usePeek = function() {
+    function usePeek() {
         deck.peek();
-    };
+    }
 
 
     this.changeAbility2 = function(bool) {
@@ -397,35 +356,27 @@ function Game(attempt) {
         increment += 100;
     };
 
+    this.getIncrement = function() {
+        return increment;
+    };
+
     this.incrementBotScore = function() {
         botScore += increment;
         return botScore;
     };
 
-    this.incrementPlayerScore = function() {
+    this.botStartNewRound = function() {
+        startNewRound();
+    }
+
+    function incrementPlayerScore() {
         if(pointsDoubler){
             playerScore += increment*2;
         } else {
             playerScore += increment;
         }
         return playerScore;
-    };
-
-    this.getIncrement = function() {
-        if(pointsDoubler){
-            return increment*2;
-        } else {
-            return increment;
-        }
-    };
-
-    this.getBotScore = function() {
-        return botScore;
-    };
-
-    this.getPlayerScore = function() {
-        return playerScore;
-    };
+    }
 
     this.setPlayerTurn = function(bool) {
         isPlayerTurn = bool;

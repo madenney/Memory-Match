@@ -4,7 +4,7 @@
 
 // Deck Object
 function Deck(size) {
-
+    this.test = "poop";
     var cards = [];
     // Create picture source array
     var picSrcArray = ["baseball.png", "bird.png", "sun.png", "tree.png", "house.png", "shoes.png",
@@ -113,10 +113,10 @@ function Deck(size) {
 
     this.peek = function() {
         for(var i = 0; i < cards.length; i++){
-            flipCard(cards[i].id);
+            this.flipCard(cards[i].id);
         }
         for(var i = 0; i < cards.length; i++){
-            unflipCard(cards[i].id);
+            this.unflipCard(cards[i].id);
         }
 
     };
@@ -285,7 +285,44 @@ function Deck(size) {
         }
     };
 
-    // Log the deck to the console, or just one card if given a parameter
+    this.flipCard = function(id) {
+        var card = $("#" + id);
+        var front = $(card).find(".front");
+        var back = $(card).find(".back");
+        var cardWidth = back.find("img").css("width");
+        back.animate({
+            width: 0
+        }, 300, function () {
+            back.addClass("hidden");
+            front.css("width", 0);
+            front.removeClass("hidden");
+            front.animate({
+                width: cardWidth
+            }, 200);
+        });
+    };
+
+    this.unflipCard = function(id) {
+        setTimeout(function() {
+            var card = $("#" + id);
+            var front = $(card).find(".front");
+            var back = $(card).find(".back");
+            var cardWidth = front.css("width");
+            front.animate({
+                width: 0
+            }, 300, function () {
+                front.addClass("hidden");
+                back.css("width", 0);
+                back.removeClass("hidden");
+                back.animate({
+                    width: cardWidth
+                }, 200);
+            });
+
+        }, 1000);
+    };
+
+    // Log the deck to the console, or just one card if given a parameter ( for testing)
     this.logCards = function(id, verbose){
 
         if(id == 0) {
