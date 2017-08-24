@@ -18,3 +18,5 @@ HTML, CSS, Javascript, and JQuery skills. I had a lot of fun making this one.
 - Make the owl better at trash talking
 - Add sound effects
 - Maybe some more interesting abilites
+- Give each card object the jquery dom element it's connected to, instead of connecting through element id's
+- Add reset button

@@ -13,18 +13,16 @@
 
     <script>
 
-        var game;
-        var attempts = 0;
+        // Run main function when document loads
+        $(document).ready(function () {
 
-        // Main function. This controls everything
-        function main(){
-            // Create a new game
-            game = new Game(0);
+            var attempts = 0;
+            var game = new Game(attempts);
+            audioPlaying = true;
 
-            // Add event listener to reset button
-            $(".reset").click(function() {
-                attempts++;
-                game = new Game(attempts);
+            // Assign Click Listeners
+            $(".custom-modal").click(function() {
+                $(this).addClass("hidden");
             });
 
             // Create Click Blocker
@@ -32,255 +30,34 @@
                 return;
             })
 
-            // Secret Button
+            // Secret Button (allows skipping rounds. Hidden in the top right corner)
             $("#secret-button").click(function() {
                 game.startNewRound();
             });
 
-
-        }
-
-        // Add Card listeners
-        function addCardEventListeners(deck) {
-            $(".card").click(function() {
-                // Log the card info
-                //deck.logCards(this.id, false);
-
-                // Unhide reset button
-                $(".reset").removeClass("hidden");
-
-                // Check if this card is already clicked or matched, if yes, then return
-                if (deck.isClicked(this.id)){return;}
-                if (deck.isMatched(this.id)){return;}
-
-                // Add to memory
-                deck.setKnown(this.id, true);
-
-                // Check to see if another card is already flipped
-                if (deck.isACardClicked()) {
-                    // Get the id of the other flipped card
-                    var otherCardId = deck.getClickedCardId();
-
-                    // Flip this card
-                    flipCard(this.id);
-                    deck.setClicked(this.id);
-
-                    // If matched
-                    if(this.id == deck.getMatchId(otherCardId)) {
-                        // Change the info inside the card object
-                        deck.setMatched(this.id);
-                        deck.setMatched(otherCardId);
-                        deck.setUnclicked(this.id);
-                        deck.setUnclicked(otherCardId);
-
-                        // Add the points animation
-                        pointsAnimation(this.id);
-                        pointsAnimation(otherCardId);
-
-                        // Add to player score
-                        setTimeout(function() {
-                            $(".player-score .value").text(game.incrementPlayerScore());
-                        }, 700);
-
-                        // Check for the end of the round, if yes, then start new round
-                        if(deck.isEveryCardMatched()) {
-                            setTimeout(function(){
-                                if (game.getPlayerScore() >= game.getBotScore()){
-                                    game.startNewRound();
-                                } else {
-                                    attempts++;
-                                    game = new Game(attempts);
-                                }
-
-                            }, 1600);
-                        }
-                    } else {
-                        // If not matched, then unflip both cards
-                        unflipCard(otherCardId);
-                        unflipCard(this.id);
-                        // Change info of both card objects
-                        deck.setUnclicked(this.id);
-                        deck.setUnclicked(otherCardId);
-
-                        $(".click-blocker").removeClass("hidden");
-                        setTimeout(function() {
-                            game.botsTurn();
-                        }, 1500);
-                    }
+            // Audio Button
+            $("#audio-button").click(function() {
+                $(this).toggleClass("glyphicon-volume-up");
+                $(this).toggleClass("glyphicon-volume-off");
+                if(audioPlaying){
+                    document.getElementById("background-music").pause();
+                    audioPlaying = false;
                 } else {
-                    // If its the first card clicked, then flip it and change card info
-                    flipCard(this.id);
-                    deck.setClicked(this.id);
+                    document.getElementById("background-music").play();
+                    audioPlaying = true;
                 }
-            });
-        }
-
-        function pointsAnimation(cardId) {
-            // Time to make sure it doesn't happen too quickly for the user to see the flipped card
-            setTimeout(function() {
-                // Remove the front and back divs
-                $("#" + cardId + " .front").remove();
-                $("#" + cardId + " .back").remove();
-                // Create the points div, make it equal to points increment divided by two (because two cards)
-                var p = $("<div>").addClass("pointsAnimation").text("+" + game.getIncrement()/2);
-
-                // Get height of cards and do some math to figure out how margin-top value
-                var cardHeight = $("#" + cardId).css("height");
-                cardHeight = cardHeight.substring(0,cardHeight.indexOf("p"));
-                p.css("margin-top", (cardHeight - 35)/2);
-
-                // Add the p div, animate it, and then remove it
-                $("#" + cardId).append(p);
-                p.animate({
-                    opacity: 0,
-                    'margin-top': (((cardHeight-35)/2) - 15)
-                }, 700, function(){
-                    $("#" + cardId).remove();
-                });
-            }, 750);
-        }
-
-        function flipCard(id) {
-            var card = $("#" + id);
-            var front = $(card).find(".front");
-            var back = $(card).find(".back");
-            var cardWidth = back.find("img").css("width");
-            back.animate({
-                width: 0
-            }, 300, function () {
-                back.addClass("hidden");
-                front.css("width", 0);
-                front.removeClass("hidden");
-                front.animate({
-                    width: cardWidth
-                }, 200);
-            });
-        }
-
-        function unflipCard(id) {
-            setTimeout(function() {
-                var card = $("#" + id);
-                var front = $(card).find(".front");
-                var back = $(card).find(".back");
-                var cardWidth = front.css("width");
-                front.animate({
-                    width: 0
-                }, 300, function () {
-                    front.addClass("hidden");
-                    back.css("width", 0);
-                    back.removeClass("hidden");
-                    back.animate({
-                        width: cardWidth
-                    }, 200);
-                });
-
-            }, 1000);
-        }
-
-        function removeCardContainers() {
-            $("#game-area .card").remove();
-            $("#game-area .deckContainer").remove();
-        }
-
-        function createCardContainers(x, y) {
-
-            var maxBoxSideLength = 150;
-
-            var containerWidth = $("#game-area").css("width");
-            var containerHeight = $("#game-area").css("height");
-            containerWidth = Number(containerWidth.substring(0, containerWidth.indexOf("p")));
-            containerHeight = Number(containerHeight.substring(0, containerHeight.indexOf("p")));
-            // Subtract 20 to account for 5px margin and 5px padding
-            containerHeight = containerHeight - 20;
-            containerWidth = containerWidth - 30;
-
-            // make sure the boxes can fit in the container
-            if (maxBoxSideLength * y > containerHeight) {
-                maxBoxSideLength = containerHeight / y;
-            }
-            if (maxBoxSideLength * x > containerWidth) {
-                maxBoxSideLength = containerWidth / x;
-            }
-
-            var boxContainer = $("<div>");
-            boxContainer.css("width", maxBoxSideLength * x);
-            boxContainer.css("height", maxBoxSideLength * y);
-            boxContainer.addClass("deckContainer");
-            boxContainer.css("margin-top", ((containerHeight - maxBoxSideLength * y) / 3));
-
-
-            for (var i = 0; i < y; i++) {
-                var row = $("<div>");
-                row.css({"width": "100%", "height" : ""+ maxBoxSideLength });
-                for (var j = 0; j < x; j++) {
-                    var cardContainer = $("<div>");
-                    cardContainer.addClass("cardContainer");
-                    cardContainer.css({"width" : "" + maxBoxSideLength, "height" : "" + maxBoxSideLength});
-                    row.append(cardContainer);
-                }
-                boxContainer.append(row);
-            }
-
-            $("#game-area").append(boxContainer);
-        }
-
-        function fillCardContainers(infoArray) {
-
-            $(".cardContainer").each( function(i) {
-
-                // Get cardContainer width
-                var cardWidth = $(this).css("width");
-
-                // Create Card
-                var card = $("<div>").addClass("card").attr("id", infoArray[i][0]);
-                card.css({"width":cardWidth, "height":cardWidth});
-
-                // Create front of card
-                var front = $("<div>").addClass("front hidden");
-                front.css({"width":cardWidth, "height":cardWidth});
-                var frontImage = $("<img>");
-
-                // Do some math to make sure the picture fits nicely within the container
-                var cardWidthNum = Number(cardWidth.substring(0,cardWidth.indexOf("p")));
-                // Had to insert this to get the cards to scale as the board becomes more compressed. I need to tweak this a bit
-                var borderScaler = (9/150) * cardWidthNum;
-                frontImage.css({"width":(cardWidthNum - 20) + "px", "height":(cardWidthNum - 20)+ "px",
-                    "margin-top": 10, "border-width": (borderScaler * 0.8) , "border-radius": (borderScaler * 0.9)});
-                frontImage.attr("src", infoArray[i][1]);
-                front.append(frontImage);
-                card.append(front);
-
-                // Create back of card
-                var back = $("<div>").addClass("back");
-                back.css({"width":cardWidth, "height":cardWidth});
-                var backImage = $("<img>").attr("src", "images/crafting_table.png");
-                backImage.css({"width":cardWidth, "height":cardWidth});
-                back.append(backImage);
-                card.append(back);
-
-                // Append the card to the cardContainer
-                $(this).append(card);
-            });
-        }
-
-        // Run main function when document loads
-        $(document).ready(function () {
-            main();
-
-            $("#intro").click(function() {
-                $(this).css("display", "none");
             });
         });
-
 
     </script>
 
 
 </head>
 <body>
+    <audio autoplay id="background-music"><source src="audio/fancyharpsichord.mp3" type="audio/mp3"></audio>
     <header class = "container-fluid">
         <div class = "col-md-2">
-            <a href="#"><button class = "header-option settings"> Settings</button></a>
+            <span id="audio-button" class="glyphicon glyphicon-volume-up"></span>
         </div>
         <div id = "title" class = "col-md-8"><a href = "index.html"><img src = "images/mmtitle.png"></a></div>
         <div class = "col-md-2">
@@ -288,9 +65,10 @@
         </div>
     </header>
 
-    <div id = "intro">
+    <div id = "intro" class = "custom-modal">
         <div class = "intro-top">
             <img src = "images/8bitowl.png">
+            <br><br>
             <h1> Hello!</h1>
             <h2> Welcome to Olly's Library of Infinite Knowledge</h2>
             <p> If you would like access to my library, then you must first beat me at a simple game.</p>
@@ -307,6 +85,12 @@
         </div>
     </div>
 
+    <div id = "you-lose-screen" class = "custom-modal hidden">
+        <img src = "images/8bitowl.png">
+        <h1> You Lost </h1>
+        <h2> To try again, click anywhere in this box. </h2>
+    </div>
+
     <div class = "container-fluid" id = "main-content">
         <div class = "click-blocker hidden"></div>
         <div class = "col-md-2">
@@ -321,7 +105,6 @@
                     <button class = "ability ability2"> Reveal</button>
                     <button class = "ability ability3"> Retry Round</button>
                 </div>
-                <button class = "reset hidden"> Reset Game </button>
             </div>
         </div>
 
