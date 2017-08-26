@@ -213,10 +213,14 @@ function Game(attempts) {
 
             // Do some math to make sure the picture fits nicely within the container
             var cardWidthNum = Number(cardWidth.substring(0,cardWidth.indexOf("p")));
-            // Had to insert this to get the cards to scale as the board becomes more compressed. I need to tweak this a bit
+            // Had to insert this to get the cards to scale as the board becomes more compressed.
             var borderScaler = (9/150) * cardWidthNum;
-            frontImage.css({"width":(cardWidthNum - 20) + "px", "height":(cardWidthNum - 20)+ "px",
-                "margin-top": 10, "border-width": (borderScaler * 0.8) , "border-radius": (borderScaler * 0.9)});
+            frontImage.css({"border-width": (borderScaler * 0.8) , "border-radius": (borderScaler * 0.9)});
+            if(screen.width > 400) {
+                frontImage.css({"margin-top": 10,"width":(cardWidthNum - 20) + "px", "height":(cardWidthNum - 20)+ "px"});
+            } else {
+                frontImage.css({"margin-top": 2.5,"width":(cardWidthNum - 5) + "px", "height":(cardWidthNum - 5)+ "px"});
+            }
             frontImage.attr("src", infoArray[i][1]);
             front.append(frontImage);
             card.append(front);

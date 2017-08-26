@@ -68,7 +68,7 @@ header {
     height: 90%;
     width: 90%;
     margin: auto;
-    z-index: 10;
+    z-index: 3;
     opacity: .6;
 }
 
@@ -249,7 +249,7 @@ header {
     margin: -25px 10vw;
     width: 80vw;
     position: absolute;
-    z-index: 100;
+    z-index: 4;
     padding-bottom: 20px;
 }
 
@@ -296,6 +296,7 @@ header {
 }
 
 #mobile-area {
+    display: none;
     color: #b97a57;
     background-color: #09333f;
     box-sizing: border-box;
@@ -332,6 +333,25 @@ header {
     text-align: center;
 }
 
+#resizing-screen {
+    color: #b97a57;
+    background-color: #09333f;
+    box-sizing: border-box;
+    border: solid #604428 5px;
+    border-radius: 12px;
+    margin-top: 15px;
+    margin-left:5vw;
+    height: 90vh;
+    width: 90vw;
+    padding: 50vw;
+    text-align: center;
+    z-index: 5;
+}
+
+#resizing-screen h1 {
+    font-size: 250%;
+}
+
 @media only screen and (max-height: 700px) {
     .score .label {
         display: none;
@@ -347,6 +367,10 @@ header {
 
     #mobile-area {
         display: inline-block;
+    }
+
+    #mobile-area .value {
+        font-size: 27px;
     }
 
     #enemy-area img, #enemy-area .speech-bubble {
@@ -368,6 +392,10 @@ header {
 
     .intro-top {
         display: none;
+    }
+
+    .card img {
+        padding: 5px;
     }
 
 }

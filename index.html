@@ -35,6 +35,14 @@
                 game.botStartNewRound();
             });
 
+            // If the window resizes, start a new game
+            $(window).resize(function(){
+                setTimeout(function() {
+                    $("#resizing-screen").removeClass("hidden");
+                    location.reload();
+                },300);
+            });
+
             // Audio Button
             $("#audio-button").click(function() {
                 $(this).toggleClass("glyphicon-volume-up");
@@ -91,6 +99,11 @@
         <img src = "images/8bitowl.png">
         <h1> You Lost </h1>
         <h2> To try again, click anywhere in this box. </h2>
+    </div>
+
+    <div id="resizing-screen" class = "hidden">
+        <h1> Resizing Game...</h1>
+        <h1> Please Wait </h1>
     </div>
 
     <div class = "container-fluid" id = "main-content">
