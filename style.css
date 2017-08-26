@@ -31,7 +31,8 @@ header {
 }
 
 #title img {
-    width: 35vw;
+    max-width: 80%;
+    max-height: 100%;
 }
 
 #title:hover {
@@ -294,8 +295,79 @@ header {
     margin-top: 10px;
 }
 
+#mobile-area {
+    color: #b97a57;
+    background-color: #09333f;
+    box-sizing: border-box;
+    border: solid #604428 5px;
+    border-radius: 12px;
+    margin-top: 15px;
+    box-sizing: border-box;
+}
+
+.mobile-info {
+    width: 45%;
+    display: inline-block;
+    height: 30%;
+    text-align: center;
+}
+
+#mobile-player {
+    float: left;
+}
+
+#mobile-enemy {
+    float: right;
+}
+
+#mobile-area .player-title {
+    font-size: 20px;
+}
+
+#mobile-area .score {
+     font-size: 20px;
+}
+
+#mobile-area .abilities{
+    text-align: center;
+}
+
 @media only screen and (max-height: 700px) {
     .score .label {
         display: none;
     }
+
+    #title {
+        width: 100%;
+    }
+
+    #player-area, #enemy-area {
+        display: none;
+    }
+
+    #mobile-area {
+        display: inline-block;
+    }
+
+    #enemy-area img, #enemy-area .speech-bubble {
+        display: none;
+    }
+
+    #intro {
+        height: 80vh;
+        font-size: 21px;
+    }
+    #intro li {
+        margin-right: 10px;
+    }
+    #intro .intro-bottom h2 {
+        font-size: 31px;
+        margin-left: 33px;
+        text-decoration: underline;
+    }
+
+    .intro-top {
+        display: none;
+    }
+
 }

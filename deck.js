@@ -95,22 +95,6 @@ function Deck(size) {
         return cardsInfoArray;
     };
 
-    // Check if card matches with already flipped card
-    this.secondCardClicked = function(id) {
-        for(var i = 0; i < cards.length; i++){
-            if (cards[i].isClicked == true) {
-                if (cards[i].matchId == id) {
-                    cards[i].isClicked = false;
-                    cards[i].isMatched = true;
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-    };
-
-
     this.peek = function() {
         for(var i = 0; i < cards.length; i++){
             this.flipCard(cards[i].id);
@@ -205,38 +189,12 @@ function Deck(size) {
         return true;
     };
 
-    // Return an array of unmatched cards
-    this.getUnmatchedArray = function() {
-        var unmatchedArray = [];
-        for(var i = 0; i < cards.length; i++){
-            if (cards[i].isMatched == false) {
-                unmatchedArray.push(cards[i].id);
-            }
-        }
-        return unmatchedArray;
-    };
-
     // Get the id of the matching card
     this.getMatchId = function (id) {
         for(var i = 0; i < cards.length; i++){
             if (cards[i].id == id) {
                 return cards[i].matchId;
             }
-        }
-    };
-
-    // Get the card object by id
-    this.getCardById = function(id) {
-        for(var i = 0; i < cards.length; i++){
-            if (cards[i].id == id) {
-                return cards[i];
-            }
-        }
-    };
-
-    this.eraseMemory = function() {
-        for(var i = 0; i < cards.length; i++) {
-            cards[i].isKnown = false;
         }
     };
 
@@ -272,15 +230,6 @@ function Deck(size) {
         for(var i = 0; i < cards.length; i++) {
             if (cards[i].id = id) {
                 return cards[i].isKnown;
-            }
-        }
-    };
-
-    this.logKnownCards = function() {
-        console.log("Known Unmatched Cards:");
-        for(var i = 0; i < cards.length; i++) {
-            if (cards[i].isKnown && !(cards[i].isMatched)) {
-                console.log(cards[i].id);
             }
         }
     };
