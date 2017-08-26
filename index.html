@@ -32,7 +32,15 @@
 
             // Secret Button (allows skipping rounds. Hidden in the top right corner)
             $("#secret-button").click(function() {
-                game.startNewRound();
+                game.botStartNewRound();
+            });
+
+            // If the window resizes, start a new game
+            $(window).resize(function(){
+                setTimeout(function() {
+                    $("#resizing-screen").removeClass("hidden");
+                    location.reload();
+                },300);
             });
 
             // Audio Button
@@ -56,11 +64,13 @@
 <body>
     <audio autoplay id="background-music"><source src="audio/fancyharpsichord.mp3" type="audio/mp3"></audio>
     <header class = "container-fluid">
-        <div class = "col-md-2">
+        <div class = "col-md-2 hidden-xs">
             <span id="audio-button" class="glyphicon glyphicon-volume-up"></span>
         </div>
-        <div id = "title" class = "col-md-8"><a href = "index.html"><img src = "images/mmtitle.png"></a></div>
-        <div class = "col-md-2">
+        <div id = "title" class = "col-md-8 col-xs-12">
+            <a href = "index.html"><img src = "images/mmtitle.png"></a>
+        </div>
+        <div class = "col-md-2 hidden-xs">
             <a href="about.html"><button class = "header-option about"> About </button></a>
         </div>
     </header>
@@ -91,9 +101,14 @@
         <h2> To try again, click anywhere in this box. </h2>
     </div>
 
+    <div id="resizing-screen" class = "hidden">
+        <h1> Resizing Game...</h1>
+        <h1> Please Wait </h1>
+    </div>
+
     <div class = "container-fluid" id = "main-content">
         <div class = "click-blocker hidden"></div>
-        <div class = "col-md-2">
+        <div class = "col-md-2 hidden-xs">
             <div id = "player-area">
                 <div class = "player-title"> Player: </div>
                 <div class = "player-score score">
@@ -108,11 +123,11 @@
             </div>
         </div>
 
-        <div class = "col-md-8" id = "game-area">
+        <div class = "col-md-8 col-xs-12" id = "game-area">
 
         </div>
 
-        <div class = "col-md-2">
+        <div class = "col-md-2 hidden-xs">
             <div id = "enemy-area" >
                 <div class = "player-title"> Olly: </div>
                 <div class = "enemy-score score">
@@ -122,6 +137,30 @@
                 <img src = "images/8bitowl.png">
                 <div class = "speech-bubble">
                     Welcome to the memory match game. My name is Olly.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 hidden-sm">
+            <div id="mobile-area">
+                <div class="mobile-info" id="mobile-player">
+                    <div class = "player-title"> Player: </div>
+                    <div class = "player-score score">
+                        <div class = "label"> Score:</div>
+                        <div class = "value"> 0 </div>
+                    </div>
+                </div>
+                <div class="mobile-info" id="mobile-enemy">
+                    <div class = "player-title"> Enemy: </div>
+                    <div class = "enemy-score score">
+                        <div class = "label"> Score:</div>
+                        <div class = "value"> 0 </div>
+                    </div>
+                </div>
+                <div class = "abilities">
+                    <button class = "ability ability1"> Points x 2</button>
+                    <button class = "ability ability2"> Reveal</button>
+                    <button class = "ability ability3"> Retry Round</button>
                 </div>
             </div>
         </div>

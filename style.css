@@ -31,7 +31,8 @@ header {
 }
 
 #title img {
-    width: 35vw;
+    max-width: 80%;
+    max-height: 100%;
 }
 
 #title:hover {
@@ -67,7 +68,7 @@ header {
     height: 90%;
     width: 90%;
     margin: auto;
-    z-index: 10;
+    z-index: 3;
     opacity: .6;
 }
 
@@ -248,7 +249,7 @@ header {
     margin: -25px 10vw;
     width: 80vw;
     position: absolute;
-    z-index: 100;
+    z-index: 4;
     padding-bottom: 20px;
 }
 
@@ -294,8 +295,107 @@ header {
     margin-top: 10px;
 }
 
+#mobile-area {
+    display: none;
+    color: #b97a57;
+    background-color: #09333f;
+    box-sizing: border-box;
+    border: solid #604428 5px;
+    border-radius: 12px;
+    margin-top: 15px;
+    box-sizing: border-box;
+}
+
+.mobile-info {
+    width: 45%;
+    display: inline-block;
+    height: 30%;
+    text-align: center;
+}
+
+#mobile-player {
+    float: left;
+}
+
+#mobile-enemy {
+    float: right;
+}
+
+#mobile-area .player-title {
+    font-size: 20px;
+}
+
+#mobile-area .score {
+     font-size: 20px;
+}
+
+#mobile-area .abilities{
+    text-align: center;
+}
+
+#resizing-screen {
+    color: #b97a57;
+    background-color: #09333f;
+    box-sizing: border-box;
+    border: solid #604428 5px;
+    border-radius: 12px;
+    margin-top: 15px;
+    margin-left:5vw;
+    height: 90vh;
+    width: 90vw;
+    padding: 50vw;
+    text-align: center;
+    z-index: 5;
+}
+
+#resizing-screen h1 {
+    font-size: 250%;
+}
+
 @media only screen and (max-height: 700px) {
     .score .label {
         display: none;
     }
+
+    #title {
+        width: 100%;
+    }
+
+    #player-area, #enemy-area {
+        display: none;
+    }
+
+    #mobile-area {
+        display: inline-block;
+    }
+
+    #mobile-area .value {
+        font-size: 27px;
+    }
+
+    #enemy-area img, #enemy-area .speech-bubble {
+        display: none;
+    }
+
+    #intro {
+        height: 80vh;
+        font-size: 21px;
+    }
+    #intro li {
+        margin-right: 10px;
+    }
+    #intro .intro-bottom h2 {
+        font-size: 31px;
+        margin-left: 33px;
+        text-decoration: underline;
+    }
+
+    .intro-top {
+        display: none;
+    }
+
+    .card img {
+        padding: 5px;
+    }
+
 }

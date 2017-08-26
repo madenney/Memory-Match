@@ -95,6 +95,7 @@ function Game(attempts) {
             $(".ability2").removeClass("used-ability");
         }
 
+        // Ability 3
         if(round >=3) {
             $(".ability3").removeClass("hidden");
             $(".ability3").removeClass("used-ability");
@@ -146,6 +147,7 @@ function Game(attempts) {
 
         var maxBoxSideLength = 150;
 
+        $("#game-area").css("height", "80vh");
         var gameAreaWidth = $("#game-area").css("width");
         var gameAreaHeight = $("#game-area").css("height");
         gameAreaWidth = Number(gameAreaWidth.substring(0, gameAreaWidth.indexOf("p")));
@@ -167,7 +169,14 @@ function Game(attempts) {
         boxContainer.css("width", maxBoxSideLength * x);
         boxContainer.css("height", maxBoxSideLength * y);
         boxContainer.addClass("deckContainer");
-        boxContainer.css("margin-top", ((gameAreaHeight - maxBoxSideLength * y) / 3));
+        // Add a margin to the top if the screen is bigger than mobile
+        if(screen.width > 400) {
+            boxContainer.css("margin-top", ((gameAreaHeight - maxBoxSideLength * y) / 3));
+        } else {
+            $("#game-area").css("height", "auto");
+            //console.log(maxBoxSideLength * x);
+            $("#mobile-area").css("width", (maxBoxSideLength * x) + 20);
+        }
 
         // A nested loop to create all the rows and columns
         for (var i = 0; i < y; i++) {
@@ -204,10 +213,14 @@ function Game(attempts) {
 
             // Do some math to make sure the picture fits nicely within the container
             var cardWidthNum = Number(cardWidth.substring(0,cardWidth.indexOf("p")));
-            // Had to insert this to get the cards to scale as the board becomes more compressed. I need to tweak this a bit
+            // Had to insert this to get the cards to scale as the board becomes more compressed.
             var borderScaler = (9/150) * cardWidthNum;
-            frontImage.css({"width":(cardWidthNum - 20) + "px", "height":(cardWidthNum - 20)+ "px",
-                "margin-top": 10, "border-width": (borderScaler * 0.8) , "border-radius": (borderScaler * 0.9)});
+            frontImage.css({"border-width": (borderScaler * 0.8) , "border-radius": (borderScaler * 0.9)});
+            if(screen.width > 400) {
+                frontImage.css({"margin-top": 10,"width":(cardWidthNum - 20) + "px", "height":(cardWidthNum - 20)+ "px"});
+            } else {
+                frontImage.css({"margin-top": 2.5,"width":(cardWidthNum - 5) + "px", "height":(cardWidthNum - 5)+ "px"});
+            }
             frontImage.attr("src", infoArray[i][1]);
             front.append(frontImage);
             card.append(front);
