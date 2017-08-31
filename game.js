@@ -174,7 +174,6 @@ function Game(attempts) {
             boxContainer.css("margin-top", ((gameAreaHeight - maxBoxSideLength * y) / 3));
         } else {
             $("#game-area").css("height", "auto");
-            //console.log(maxBoxSideLength * x);
             $("#mobile-area").css("width", (maxBoxSideLength * x) + 20);
         }
 
@@ -352,23 +351,6 @@ function Game(attempts) {
         deck.peek();
     }
 
-
-    this.changeAbility2 = function(bool) {
-        ability2 = bool;
-    };
-
-    this.isAbility1 = function() {
-        return isAbility1;
-    };
-
-    this.isAbility2 = function() {
-        return isAbility2;
-    };
-
-    this.incrementIncrement = function() {
-        increment += 100;
-    };
-
     this.getIncrement = function() {
         return increment;
     };
@@ -390,17 +372,4 @@ function Game(attempts) {
         }
         return playerScore;
     }
-
-    this.setPlayerTurn = function(bool) {
-        isPlayerTurn = bool;
-        if (isPlayerTurn) {
-            $(".click-blocker").removeClass("hidden");
-        } else {
-            $(".click-blocker").addClass("hidden");
-        }
-    };
-
-    this.isPlayerTurn = function() {
-        return isPlayerTurn;
-    };
 }
