@@ -6,12 +6,12 @@
 is an AI opponent with a perfect memory and the board gets bigger each round. Throughout the game, the user unlocks abilities
 that will help them defeat the AI opponent.
 
-#About
+## About
 
 > This was a project I did by myself near the beginning of my web development training. It was a way to practice my basic
 HTML, CSS, Javascript, and JQuery skills. I had a lot of fun making this one.
 
-#Future
+## Future
 
 > If I was to come back to this and work on it again, there are several changes I would make. 
 - Make the rules more clear and less boring to read.
