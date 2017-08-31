@@ -339,17 +339,16 @@ header {
     box-sizing: border-box;
     border: solid #604428 5px;
     border-radius: 12px;
-    margin-top: 15px;
-    margin-left:5vw;
-    height: 90vh;
-    width: 90vw;
-    padding: 50vw;
+    margin-left: 15vw;
+    height: 70vh;
+    width: 70vw;
     text-align: center;
-    z-index: 5;
+    z-index: 1000;
+    position: absolute;
 }
 
 #resizing-screen h1 {
-    font-size: 250%;
+    font-size: 30px;
 }
 
 @media only screen and (max-height: 700px) {
