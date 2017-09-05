@@ -27,7 +27,6 @@ function Game(attempts) {
 
     // This will run upon the creation of a new game
     function newGame() {
-        console.log("Starting New Game");
 
         // Reset Score
         playerScore = 0;
@@ -67,10 +66,17 @@ function Game(attempts) {
 
     // Basically the same thing as the constructor, but it doesn't reset the score
     function startNewRound() {
-        console.log("Starting New Round");
         playerScoreStart = playerScore;
         botScoreStart = botScore;
         round++;
+
+        // Check for end of game
+        if(round > 9){
+            $("#win-screen").removeClass('hidden');
+            newGame();
+        }
+
+
         increment += 100;
         removeCardContainers();
         createCardContainers(boardDimensions[round][0],boardDimensions[round][1]);
@@ -281,8 +287,8 @@ function Game(attempts) {
                                 startNewRound();
                             } else {
                                 attempts++;
-                                $("#you-lose-screen").removeClass("hidden");
-                                game = new Game(attempts);
+                                $("#lose-screen").removeClass("hidden");
+                                newGame();
                             }
 
                         }, 1600);

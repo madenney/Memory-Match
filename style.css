@@ -283,9 +283,10 @@ header {
     display: inline-block;
 }
 
-#you-lose-screen{
+.you-lose-screen{
     text-align: center;
     height: 60vh;
+    z-index: 1000;
 }
 
 .botPoints {
