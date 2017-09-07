@@ -242,7 +242,6 @@ function Deck(size) {
         var card = $("#" + id);
         var front = $(card).find(".front");
         var back = $(card).find(".back");
-        var cardWidth = back.find("img").css("width");
         back.animate({
             width: 0
         }, 300, function () {
@@ -250,7 +249,7 @@ function Deck(size) {
             front.css("width", 0);
             front.removeClass("hidden");
             front.animate({
-                width: cardWidth
+                width: '100%'
             }, 200);
         });
     };
@@ -260,7 +259,6 @@ function Deck(size) {
             var card = $("#" + id);
             var front = $(card).find(".front");
             var back = $(card).find(".back");
-            var cardWidth = front.css("width");
             front.animate({
                 width: 0
             }, 300, function () {
@@ -268,7 +266,7 @@ function Deck(size) {
                 back.css("width", 0);
                 back.removeClass("hidden");
                 back.animate({
-                    width: cardWidth
+                    width: '100%'
                 }, 200);
             });
 
@@ -278,8 +276,7 @@ function Deck(size) {
     // Log the deck to the console, or just one card if given a parameter ( for testing)
     this.logCards = function(id, verbose){
 
-        if(id == 0) {
-            console.log("HERE");
+        if(id === 0) {
             id = "0";
         }
 
