@@ -4,7 +4,7 @@
 }
 
 body {
-    height: 100vh;
+    height: 110vh;
     font-family: myFont;
     background-image: url(images/8-Bit-Library-Background.jpg);
     background-repeat: no-repeat;
@@ -18,23 +18,24 @@ body {
 header {
     font-family: myFont;
     width: 100%;
-    height: 15%;
+    height: 18%;
     #background-color: lightgray;
     margin-bottom: 1%;
     position: relative;
+    overflow: hidden;
 }
 
 #title {
-    font-size: 68px;
     margin : auto;
-    padding-top: 8px;
+    padding-top: 1%;
     text-align: center;
-    text-decoration: none;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 #title img {
-    max-width: 80%;
-    max-height: 100%;
+    max-width: 99%;
+    max-height: 98%;
 }
 
 #title:hover {
@@ -311,6 +312,10 @@ header {
 /* -------------- Mobile Responsiveness ----------- */
 /* ------------------------------------------------ */
 
+#mobile-container{
+    text-align: center;
+}
+
 #mobile-area {
     display: none;
     color: #b97a57;
@@ -320,6 +325,8 @@ header {
     border-radius: 12px;
     margin-top: 15px;
     box-sizing: border-box;
+    width: 70%;
+    height: auto;
 }
 
 .mobile-info {
@@ -367,13 +374,41 @@ header {
     font-size: 30px;
 }
 
+
 @media only screen and (max-height: 700px) {
+    #title img{
+        max-width: 60%;
+    }
+
+    #enemy-area img {
+        width: 80%;
+    }
+    #enemy-area .speech-bubble {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 990px) {
     .score .label {
         display: none;
     }
 
+    body{
+        height: 120vh;
+    }
+
+    #title img {
+        max-width: 100%;
+        max-height: 98%;
+    }
+
     #title {
         width: 100%;
+        height: 100%;
+    }
+
+    #game-area{
+        height: 50vh;
     }
 
     #player-area, #enemy-area {
@@ -413,4 +448,13 @@ header {
         padding: 5px;
     }
 
+}
+
+@media only screen and (max-width: 700px) and (max-height: 400px) {
+    body{
+        height: 150vh;
+    }
+    #intro {
+        height: 95vh;
+    }
 }

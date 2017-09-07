@@ -95,6 +95,10 @@ function Deck(size) {
         return cardsInfoArray;
     };
 
+    this.getResizeInfo = function() {
+        return cards;
+    };
+
     this.peek = function() {
         for(var i = 0; i < cards.length; i++){
             this.flipCard(cards[i].id);

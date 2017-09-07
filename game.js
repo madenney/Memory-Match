@@ -152,8 +152,11 @@ function Game(attempts) {
         // If there isn't enough room, then each box is set to the width or height, whichever is smaller, in order to maintain a square shape
 
         var maxBoxSideLength = 150;
-
-        $("#game-area").css("height", "80vh");
+        console.log("game-area height: " + $("#game-area").css("height"));
+        setTimeout(function() {
+            console.log("game-area height: " + $("#game-area").css("height"));
+        }, 1000);
+        //$("#game-area").css("height", "80vh");
         var gameAreaWidth = $("#game-area").css("width");
         var gameAreaHeight = $("#game-area").css("height");
         gameAreaWidth = Number(gameAreaWidth.substring(0, gameAreaWidth.indexOf("p")));
@@ -179,7 +182,7 @@ function Game(attempts) {
         if(screen.width > 400) {
             boxContainer.css("margin-top", ((gameAreaHeight - maxBoxSideLength * y) / 3));
         } else {
-            $("#game-area").css("height", "auto");
+            //$("#game-area").css("height", "auto");
             $("#mobile-area").css("width", (maxBoxSideLength * x) + 20);
         }
 
@@ -338,6 +341,24 @@ function Game(attempts) {
             });
         }, 750);
     }
+
+    this.resize = function() {
+
+        // Rebuild Board
+        removeCardContainers();
+        createCardContainers(boardDimensions[round][0],boardDimensions[round][1]);
+        fillCardContainers(deck.getCardsInfo());
+        addCardEventListeners(deck);
+
+        // Get rid of cards that are already flipped
+        var cards = deck.getResizeInfo();
+        for(var i = 0; i < cards.length; i++) {
+            if(cards[i].isMatched) {
+                $("#" + cards[i].id + " .front").remove();
+                $("#" + cards[i].id + " .back").remove();
+            }
+        }
+    };
 
 
     function botsTurn() {

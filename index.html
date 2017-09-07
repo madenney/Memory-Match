@@ -38,10 +38,11 @@
 
             // If the window resizes, start a new game
             $(window).resize(function(){
-                setTimeout(function() {
-                    $("#resizing-screen").removeClass("hidden");
-                    location.reload();
-                },300);
+//                setTimeout(function() {
+//                    $("#resizing-screen").removeClass("hidden");
+//                    location.reload();
+//                },300);
+                game.resize();
             });
 
             // Audio Button
@@ -65,10 +66,10 @@
 <body>
     <audio autoplay id="background-music"><source src="audio/fancyharpsichord.mp3" type="audio/mp3"></audio>
     <header class = "container-fluid">
-        <div class = "col-md-2 hidden-xs">
+        <div class = "hidden-xs hidden-sm col-md-2">
             <span id="audio-button" class="glyphicon glyphicon-volume-up"></span>
         </div>
-        <div id = "title" class = "col-md-8 col-xs-12">
+        <div id = "title" class = "col-md-8 col-sm-12">
             <a href = "index.html"><img src = "images/mmtitle.png"></a>
         </div>
     </header>
@@ -112,6 +113,7 @@
 
     <div class = "container-fluid" id = "main-content">
         <div class = "click-blocker hidden"></div>
+
         <div class = "col-md-2 hidden-xs">
             <div id = "player-area">
                 <div class = "player-title"> Player: </div>
@@ -145,7 +147,7 @@
             </div>
         </div>
 
-        <div class="col-xs-12 hidden-sm">
+        <div id="mobile-container" class="hidden-md">
             <div id="mobile-area">
                 <div class="mobile-info" id="mobile-player">
                     <div class = "player-title"> Player: </div>
