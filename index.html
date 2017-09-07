@@ -36,12 +36,7 @@
                 game.botStartNewRound();
             });
 
-            // If the window resizes, start a new game
             $(window).resize(function(){
-//                setTimeout(function() {
-//                    $("#resizing-screen").removeClass("hidden");
-//                    location.reload();
-//                },300);
                 game.resize();
             });
 
