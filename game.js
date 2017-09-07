@@ -42,7 +42,6 @@ function Game(attempts) {
         $(".enemy-score .value").text(botScore);
         createCardContainers(boardDimensions[round][0],boardDimensions[round][1]);
         deck = new Deck(boardDimensions[round][0] * boardDimensions[round][1]);
-
         fillCardContainers(deck.getCardsInfo());
         addCardEventListeners(deck);
         addAbilityEventListeners();
@@ -152,10 +151,6 @@ function Game(attempts) {
         // If there isn't enough room, then each box is set to the width or height, whichever is smaller, in order to maintain a square shape
 
         var maxBoxSideLength = 150;
-        console.log("game-area height: " + $("#game-area").css("height"));
-        setTimeout(function() {
-            console.log("game-area height: " + $("#game-area").css("height"));
-        }, 1000);
         //$("#game-area").css("height", "80vh");
         var gameAreaWidth = $("#game-area").css("width");
         var gameAreaHeight = $("#game-area").css("height");
@@ -207,37 +202,29 @@ function Game(attempts) {
 
         $(".cardContainer").each( function(i) {
 
-            // Get cardContainer width
-            var cardWidth = $(this).css("width");
-
             // Create Card
             var card = $("<div>").addClass("card").attr("id", infoArray[i][0]);
-            card.css({"width":cardWidth, "height":cardWidth});
 
             // Create front of card
             var front = $("<div>").addClass("front hidden");
-            front.css({"width":cardWidth, "height":cardWidth});
-            var frontImage = $("<img>");
+            var frontImage = $("<img>").attr("src", infoArray[i][1]);;
 
             // Do some math to make sure the picture fits nicely within the container
-            var cardWidthNum = Number(cardWidth.substring(0,cardWidth.indexOf("p")));
             // Had to insert this to get the cards to scale as the board becomes more compressed.
-            var borderScaler = (9/150) * cardWidthNum;
-            frontImage.css({"border-width": (borderScaler * 0.8) , "border-radius": (borderScaler * 0.9)});
-            if(screen.width > 400) {
-                frontImage.css({"margin-top": 10,"width":(cardWidthNum - 20) + "px", "height":(cardWidthNum - 20)+ "px"});
-            } else {
-                frontImage.css({"margin-top": 2.5,"width":(cardWidthNum - 5) + "px", "height":(cardWidthNum - 5)+ "px"});
-            }
-            frontImage.attr("src", infoArray[i][1]);
+            // var borderScaler = (9/150) * cardWidthNum;
+            // frontImage.css({"border-width": (borderScaler * 0.8) , "border-radius": (borderScaler * 0.9)});
+            // if(screen.width > 400) {
+            //     frontImage.css({"margin-top": 10,"width":(cardWidthNum - 20) + "px", "height":(cardWidthNum - 20)+ "px"});
+            // } else {
+            //     frontImage.css({"margin-top": 2.5,"width":(cardWidthNum - 5) + "px", "height":(cardWidthNum - 5)+ "px"});
+            // }
+
             front.append(frontImage);
             card.append(front);
 
             // Create back of card
             var back = $("<div>").addClass("back");
-            back.css({"width":cardWidth, "height":cardWidth});
             var backImage = $("<img>").attr("src", "images/crafting_table.png");
-            backImage.css({"width":cardWidth, "height":cardWidth});
             back.append(backImage);
             card.append(back);
 
