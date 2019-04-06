@@ -4,7 +4,7 @@
 
 // Deck Object
 function Deck(size) {
-    this.test = "poop";
+    
     var cards = [];
     // Create picture source array
     var picSrcArray = ["baseball.png", "bird.png", "sun.png", "tree.png", "house.png", "shoes.png",
